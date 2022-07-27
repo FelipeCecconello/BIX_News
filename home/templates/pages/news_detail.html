@@ -1,0 +1,104 @@
+ {% extends 'homebase.html' %}
+
+ {% block title %} {{post.title}} {% endblock  %}
+
+ {% block preloader %} {% include 'preloader.html' %} {% endblock  %}
+ {% block header %} {% include 'header.html' %} {% endblock  %}
+ {% block slide %} {% include 'slide.html' %} {% endblock  %}
+
+ <section class="{% block container %} blog-posts {% endblock  %}">
+     <div class="container">
+         <div class="row">
+             {% block content %}
+
+             <div class="col-lg-12">
+            <div class="all-blog-posts">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="blog-post">
+                    <div class="down-content">
+                      <h2>{{news.title}}</h2>
+                      <ul class="post-info">
+                        <li>{{news.user}}</li>
+                        <li>{{news.updated_at|date:"d / m / Y"}}</li>
+                        {% if total_comments > 0 %}
+                        <li>{{total_comments}} comments</li>
+                        {% else %}
+                        <li>No comments</li>
+                        {% endif %}
+                      </ul>
+                      <p>{{news.text|safe}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sidebar-item comments">
+                    <div class="sidebar-heading">
+
+                    {% if total_comments > 0 %}
+                         <h2>{{total_comments}} comments</h2>
+                        {% else %}
+                        <h2>No comments</h2>
+                        {% endif %}
+
+
+                    </div>
+                    <div class="content">
+                    {% for item in comments %}
+                      <ul>
+
+                        <li>
+                          <div class="author-thumb mt-5">
+                            <img src="assets/images/comment-author-01.jpg" alt="">
+                          </div>
+                          <div class="right-content">
+                            <h4>{{item.name}}<span>{{item.created_at|date:"d/m/Y"}}</span></h4>
+                            <p> {{item.comment}} </p>
+                          </div>
+                        </li>
+
+                      </ul>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sidebar-item submit-comment">
+                    <div class="sidebar-heading">
+                      <h2>LEAVE A COMMENT</h2>
+                    </div>
+                    <div class="content">
+                      <form id="comment" action="/news/addcomment/{{news.id}}" method="POST">
+                      {% csrf_token %}
+                        <div class="row">
+                          <div class="col-md-12 col-sm-12">
+                            <fieldset>
+                              <input name="name" type="text" id="name" placeholder="Your name" required="">
+                            </fieldset>
+                          </div>
+
+
+                          <div class="col-lg-12">
+                            <fieldset>
+                              <textarea name="comment" rows="6" id="message" placeholder="Type your comment" required=""></textarea>
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-12">
+                            <fieldset>
+                              <button type="submit" id="form-submit" class="main-button">Submit</button>
+                            </fieldset>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+              {% endblock  %}
+
+         </div>
+     </div>
+ </section>
+ {% block footer %} {% include 'footer.html' %} {% endblock  %}

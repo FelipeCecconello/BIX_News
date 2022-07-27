@@ -1,0 +1,20 @@
+<div class="main-banner header-text">
+      <div class="container-fluid">
+        <div class="owl-banner owl-carousel">
+          {% for item in random_news %}
+          <div class="item">
+            <img width="300px" height="300px" src="{{item.image.url}}" alt="">
+            <div class="item-content">
+              <div class="main-content">
+                <a href="/news/{{item.id}}/{{item.slug}}"><h4>{{item.title}}</h4></a>
+                <ul class="post-info">
+                  <li><a href="#">{{item.user}}</a></li>
+                  <li><a href="#">{{item.updated_at|date:"m/d/Y"}}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
